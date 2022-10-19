@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  
+    
+    <link rel="stylesheet" href="login.css"/>
+    <script>
+        $(document).ready(function() {  
+            $('#login').on('click',function(){
+                login();
+             })
+        })
+        function login(){
+                     
+            var username = $("#username1").val();
+            var password = $("#password").val();
+            
+    
+            console.log(username+password);
+           
+            $.ajax({
+                url:"http://localhost:8080/demogetusers",
+                type: 'GET',
+                success: function(data)
+                {
+                   var element = ((data));
+    
+                  // console.log(element);
+                   //console.log(element[1].username);
+                   
+                   for(var i=0;i<element.length;i++){
+                 //console.log(element[i].username);
+                   //console.log(element[1]);
+                   //console.log(element[1].password);
+           
+                        if((element[i].username==username && element[i].password==password))
+                        {
+                           // alert("in if clause");
+                       // window.location.href = "add.html";
+                       
+                            // var user=element[i].user
+                           console.log(element[i].username);
+                            localStorage.setItem("sessionuser",element[i].username);
+                           location.replace("add.html");
+                        
+                        }
+                        if ((username=="akshaya" && password==password)) {
+                            console.log("inside admin");
+                            location.replace("report.html");
+                        }
+                        
+    
+                       /* else{
+                            alert("Wrong crendentials");
+                        }*/
+                       
+                    }
+                     
+                 }
+               
+            });
+        }
+    </script>
+    </head>
+<body>
+    <h1>DEVICE FARM</h1>
+  <div class="login">
+    <div class="login_box">
+        <h1>LOGIN</h1>
+            <div class="login_form">
+                <div class="field">
+                    <label >Username</label>
+                    <input type="text" name="username1" id="username1" autoComplete="off"/>
+                </div>
+                <div class="field">
+                    <label >Password</label>
+                    <input type="password" name="password" id="password"/>
+                </div>
+                <button  id="login"type="submit" class="login_btn">Login</button>
+            </div>
+            <div>
+            </div>
+    </div>
+</div>
+
+
+  </body>
+  </body>
+  </html>

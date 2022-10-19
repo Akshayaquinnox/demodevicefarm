@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">  -->
+    <style>
+   table{
+      background-color: aliceblue;
+      color: black;
+      }
+    </style>
+    <link rel="stylesheet" href="report.css">
+    <div class="area" >
+      <ul class="circles">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+      
+    
+     <style>
+      .logout {
+         position: absolute;
+         top: 10px;
+         right: 18px;
+         font-size: 20px;
+         font:bolder;
+       }
+       
+     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#button').on('click',function(){
+         loadDataFrommobile();
+        // getdetails();
+      });
+      $('#getserver').on('click',function(){
+        //getserverdetails();
+        loadDataFromserver();
+     });
+     $('#getotherdevices').on('click',function(){
+      //getotherdevices();
+      loadDataFromotherdevices();
+   });
+      $('#getreports').on('click',function(){
+         loadreports();
+       // getreports();
+      });
+      
+     
+   });
+
+   var globalList;
+   function getdetails(){
+      var $id=$('#list');
+      $.ajax({
+         type:"GET",
+         url:"http://localhost:8080/demogetmobile",
+         success:function (id){
+          
+          globalList = id;
+          for (var i = 0; i < id.length; i++){
+             console.log("Mobile Data",globalList);
+            // $.each(id.mobile,function(i,mobile){
+                 $id.append('<li>mobile:name:'+globalList[i].name+'location'+globalList[i].location+',type:'+globalList[i].type+',manufacture:'+globalList[i].manufacture+',make:'+globalList[i].make+', model:'+globalList[i].model+',os:'+globalList[i].os+',date:'+globalList[i].date+',serailno:'+globalList[i].serialno+',createddata:'+globalList[i].createddata+',server:'+globalList[i].server+',ipadress:'+globalList[i].ipadress+',phno:'+globalList[i].phno+'</li>')
+            }
+            // });
+         }
+   
+   
+     });
+   }
+
+   var serverlist;
+   function getserverdetails(){
+    var $id=$('#serverlist');
+    $.ajax({
+       type:"GET",
+       url:"http://localhost:8080/demogetserver",
+       success:function (id){
+        
+        serverlist = id;
+        for (var i = 0; i < id.length; i++){
+           console.log("server Data",serverlist);
+          // $.each(id.mobile,function(i,mobile){
+               $id.append('<li>server:location:'+serverlist[i].location+',type:'+serverlist[i].type+
+                ',manufacture:'+serverlist[i].manufacture+',make:'+serverlist[i].make+',model:'+
+                serverlist[i].model+',os:'+serverlist[i].os+',date:'+serverlist[i].date+',serailno:'+
+                serverlist[i].serialno+',createddata:'+serverlist[i].createddata+
+                ',server:'+serverlist[i].server+',ipadress:'+serverlist[i].ipadress+
+                ',phno:'+serverlist[i].phno+'clientDeviceID:'+
+                serverlist[i].clientDeviceID+'</li>')
+          }
+          // });
+       }
+ 
+ 
+   });
+ }
+
+ var otherdevicesList;
+ function getotherdevices(){
+    var $id=$('#otherdeviceslist');
+    $.ajax({
+       type:"GET",
+       url:"http://localhost:8080/demogetotherdevices",
+       success:function (id){
+        
+        otherdevicesList = id;
+        for (var i = 0; i < id.length; i++){
+           console.log("otherdevices Data",otherdevicesList);
+          // $.each(id.mobile,function(i,mobile){
+               $id.append('<li>otherdevices:location:'+otherdevicesList[i].location+',type:'+otherdevicesList[i].type+
+                ',manufacture:'+otherdevicesList[i].manufacture+',make:'+otherdevicesList[i].make+
+                ',model:'+otherdevicesList[i].model+',os:'+otherdevicesList[i].os+',date:'+otherdevicesList[i].date+
+                ',serailno:'+otherdevicesList[i].serialno+
+                ',server:'+otherdevicesList[i].server+',ipadress:'+otherdevicesList[i].ipadress+
+                ',phno:'+otherdevicesList[i].phno+
+                'clientDeviceID:'+otherdevicesList[i].clientDeviceID+
+                '</li>')
+          }
+          // });
+       }
+ 
+ 
+   });
+ }
+
+ var reportsList;
+ function getreports(){
+    var $id=$('#reportslist');
+    $.ajax({
+       type:"GET",
+       url:"http://localhost:8080/demogetreports",
+       success:function (id){
+        
+        reportsList = id;
+        for (var i = 0; i < id.length; i++){
+           console.log("reports Data",reportsList);
+          // $.each(id.mobile,function(i,mobile){
+               $id.append('<li>mobile:total_no_mobile_devices:'+reportsList[i].total_no_mobile_devices+
+                '</li>'+'<li>'+',total_no_server_devices:'+reportsList[i].total_no_server_devices+
+                  '</li>'+'<li>total_no_otherdevices:'+reportsList[i].total_no_otherdevices+
+                  '</li>'+'<li>total_no_of_devices:'+reportsList[i].total_no_of_devices+
+                  '</li>'+'<li>total_no_mobile_types:'+reportsList[i].total_no_types+
+                    
+                  '</li>'+'<li>mobile activestatus:'+reportsList[i].activestatus+
+                  '</li>'+'<li>mobile inactivestatus:'+reportsList[i].inactivestatus+
+                  '</li>'+'<li>mobile damagedstatus:'+reportsList[i].damagedstatus+
+                    
+                  '</li>'+'<li>server activestatus:'+reportsList[i].serveractivestatus+
+                    '</li>'+'<li>server inactivestatus:'+reportsList[i].serverinactivestatus+
+                    '</li>'+'<li>server damagedstatus:'+reportsList[i].serverdamagedstatus+
+
+                      '</li>'+'<li>otherdevices activestatus:'+reportsList[i].otherdevicesactivestatus+
+                        '</li>'+'<li>otherdevices inactivestatus:'+reportsList[i].otherdevicesinactivestatus+
+                        '</li>'+'<li>otherdevices damagedstatus:'+reportsList[i].otherdevicesdamagedstatus+
+                    '</li>')
+          }
+          // });
+       }
+ 
+ 
+   });
+ }
+
+   
+function loadDataFrommobile() {
+  
+   $.ajax({
+         type: 'get',
+         url : 'http://localhost:8080/demogetmobile/',
+         success: function(data){
+            $('#head').html("");
+            let dynamicTh="<tr><th>Device Id</th>";
+            dynamicTh = dynamicTh + "<th>Name</th>";
+            dynamicTh = dynamicTh + "<th>Manufacture</th>";
+            dynamicTh = dynamicTh + "<th>Operating System </th>";
+            dynamicTh = dynamicTh + "<th>Date of Purchase</th>";
+            dynamicTh = dynamicTh + "<th>Serial Number</th>";
+            dynamicTh = dynamicTh + "<th>Server Connected </th>";
+            dynamicTh = dynamicTh + "<th> Current Client </th>";
+            dynamicTh = dynamicTh + "<th>Location of Hosting </th>";
+            dynamicTh = dynamicTh + "<th> Type of device </th>";
+            dynamicTh = dynamicTh + "<th>Status </th>";
+            dynamicTh = dynamicTh + "<th>IP Address</th>";
+            dynamicTh = dynamicTh + "<th> Phone Number</th></tr>";
+            $('#head').append(dynamicTh);
+     $("#tblData tbody").html("");
+
+     let index = 1;
+     $.each(data,function(i, element)
+     {
+       let dynamicTR = "<tr>";
+       dynamicTR = dynamicTR + "<td class='device_id'>" + element.clientDeviceID+ "</td>";
+       
+       dynamicTR = dynamicTR + "<td>" + element.name+ "</td>";
+       dynamicTR = dynamicTR + "<td class='Manufacture'>" + element.manufacture + "</td>";
+       dynamicTR = dynamicTR + "<td class='Operating_System'>" + element.os + "</td>";
+       dynamicTR = dynamicTR + "<td class='Date_of_Purchase'>" + element.date + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Serial_Number'>" + element.serialno + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Server_connected_to'>" + element.server_connected + "</td>";
+       dynamicTR = dynamicTR + "<td class='Current_Client'>" + element.current_client + "</td>";
+       dynamicTR = dynamicTR + "<td class='Location_of_Hosting'>" + element.location + "</td>";
+           
+       dynamicTR = dynamicTR + "<td class='type_of_device'>" + element.type + "</td>";
+       dynamicTR = dynamicTR + "<td class='Status'>" + element.status + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='IP_address'>" + element.ipadress + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Phone_Number'>" + element.phno + "</td>";
+       dynamicTR = dynamicTR + "    <td class='tdAction text-center'>";
+       dynamicTR = dynamicTR + "    </td>";
+       dynamicTR = dynamicTR + " </tr>";
+       $("#tblData tbody").append(dynamicTR);
+       index++;
+      
+ });
+ 
+ }
+  } );     
+     
+ }
+ 
+   
+function loadDataFromserver() {
+  
+   $.ajax({
+         type: 'get',
+         url : 'http://localhost:8080/demogetserver/',
+         success: function(data){
+            $('#shead').html("");
+            let dynamicTh="<tr><th>Device Id</th>";
+            dynamicTh = dynamicTh + "<th>Name</th>";
+            dynamicTh = dynamicTh + "<th>Manufacture</th>";
+            dynamicTh = dynamicTh + "<th>Operating System </th>";
+            dynamicTh = dynamicTh + "<th>Date of Purchase</th>";
+            dynamicTh = dynamicTh + "<th>Serial Number</th>";
+            dynamicTh = dynamicTh + "<th>Server Connected </th>";
+            dynamicTh = dynamicTh + "<th> Current Client </th>";
+            dynamicTh = dynamicTh + "<th>Location of Hosting </th>";
+            dynamicTh = dynamicTh + "<th> Type of device </th>";
+            dynamicTh = dynamicTh + "<th>Status </th>";
+            dynamicTh = dynamicTh + "<th>IP Address</th>";
+            dynamicTh = dynamicTh + "<th> Phone Number</th></tr>";
+            $('#shead').append(dynamicTh);
+     $("#tblsData tbody").html("");
+
+     let index = 1;
+     $.each(data,function(i, element)
+     {
+       let dynamicTR = "<tr>";
+       dynamicTR = dynamicTR + "<td class='device_id'>" + element.clientDeviceID+ "</td>";
+       
+       dynamicTR = dynamicTR + "<td>" + element.name+ "</td>";
+       dynamicTR = dynamicTR + "<td class='Manufacture'>" + element.manufacture + "</td>";
+       dynamicTR = dynamicTR + "<td class='Operating_System'>" + element.os + "</td>";
+       dynamicTR = dynamicTR + "<td class='Date_of_Purchase'>" + element.date + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Serial_Number'>" + element.serialno + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Server_connected_to'>" + element.server_connected + "</td>";
+       dynamicTR = dynamicTR + "<td class='Current_Client'>" + element.current_client + "</td>";
+       dynamicTR = dynamicTR + "<td class='Location_of_Hosting'>" + element.location + "</td>";
+           
+       dynamicTR = dynamicTR + "<td class='type_of_device'>" + element.type + "</td>";
+       dynamicTR = dynamicTR + "<td class='Status'>" + element.status + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='IP_address'>" + element.ipadress + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Phone_Number'>" + element.phno + "</td>";
+       dynamicTR = dynamicTR + "    <td class='tdAction text-center'>";
+       dynamicTR = dynamicTR + "    </td>";
+       dynamicTR = dynamicTR + " </tr>";
+       $("#tblsData tbody").append(dynamicTR);
+       index++;
+      
+ });
+ 
+ }
+  } );     
+ }
+ 
+ 
+function loadDataFromotherdevices() {
+  
+   $.ajax({
+         type: 'get',
+         url : 'http://localhost:8080/demogetotherdevices/',
+         success: function(data){
+            $('#odhead').html("");
+            let dynamicTh="<tr><th>Device Id</th>";
+            dynamicTh = dynamicTh + "<th>Name</th>";
+            dynamicTh = dynamicTh + "<th>Manufacture</th>";
+            dynamicTh = dynamicTh + "<th>Operating System </th>";
+            dynamicTh = dynamicTh + "<th>Date of Purchase</th>";
+            dynamicTh = dynamicTh + "<th>Serial Number</th>";
+            dynamicTh = dynamicTh + "<th>Server Connected </th>";
+            dynamicTh = dynamicTh + "<th> Current Client </th>";
+            dynamicTh = dynamicTh + "<th>Location of Hosting </th>";
+            dynamicTh = dynamicTh + "<th> Type of device </th>";
+            dynamicTh = dynamicTh + "<th>Status </th>";
+            dynamicTh = dynamicTh + "<th>IP Address</th>";
+            dynamicTh = dynamicTh + "<th> Phone Number</th></tr>";
+            $('#odhead').append(dynamicTh);
+     $("#tblodData tbody").html("");
+
+     let index = 1;
+     $.each(data,function(i, element)
+     {
+       let dynamicTR = "<tr>";
+       dynamicTR = dynamicTR + "<td class='device_id'>" + element.clientDeviceID+ "</td>";
+       
+       dynamicTR = dynamicTR + "<td>" + element.name+ "</td>";
+       dynamicTR = dynamicTR + "<td class='Manufacture'>" + element.manufacture + "</td>";
+       dynamicTR = dynamicTR + "<td class='Operating_System'>" + element.os + "</td>";
+       dynamicTR = dynamicTR + "<td class='Date_of_Purchase'>" + element.date + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Serial_Number'>" + element.serialno + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Server_connected_to'>" + element.server_connected + "</td>";
+       dynamicTR = dynamicTR + "<td class='Current_Client'>" + element.current_client + "</td>";
+       dynamicTR = dynamicTR + "<td class='Location_of_Hosting'>" + element.location + "</td>";
+           
+       dynamicTR = dynamicTR + "<td class='type_of_device'>" + element.type + "</td>";
+       dynamicTR = dynamicTR + "<td class='Status'>" + element.status + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='IP_address'>" + element.ipadress + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Phone_Number'>" + element.phno + "</td>";
+       dynamicTR = dynamicTR + "    <td class='tdAction text-center'>";
+       dynamicTR = dynamicTR + "    </td>";
+       dynamicTR = dynamicTR + " </tr>";
+       $("#tblodData tbody").append(dynamicTR);
+       index++;
+      
+ });
+ 
+ }
+  } );     
+ }
+ 
+function loadreports() {
+  
+   $.ajax({
+         type: 'get',
+         url : 'http://localhost:8080/demogetreports/',
+         success: function(data){
+            $('#reporthead').html("");
+            let dynamicTh="<tr><th>total_no_mobile_devices </th>";
+            dynamicTh = dynamicTh + "<th>total_no_server_devices </th>";
+            dynamicTh = dynamicTh + "<th>total_no_otherdevices </th>";
+            dynamicTh = dynamicTh + "<th>total_no_of_devices </th>";
+            dynamicTh = dynamicTh + "<th>total_no_types </th>";
+            dynamicTh = dynamicTh + "<th>activestatus </th>";
+            dynamicTh = dynamicTh + "<th>inactivestatus </th>";
+            dynamicTh = dynamicTh + "<th>damagedstatus </th>";
+            dynamicTh = dynamicTh + "<th>serveractivestatus </th>";
+            dynamicTh = dynamicTh + "<th>serverinactivestatus </th>";
+            dynamicTh = dynamicTh + "<th>serverdamagedstatus  </th>";
+            dynamicTh = dynamicTh + "<th>otherdevicesactivestatus </th>";
+            
+            dynamicTh = dynamicTh + "<th>otherdevicesinactivestatus </th>";
+            dynamicTh = dynamicTh + "<th>otherdevicesdamagedstatus </th></tr>";
+            $('#reporthead').append(dynamicTh);
+     $("#tblreports tbody").html("");
+
+     let index = 1;
+     $.each(data,function(i, element)
+     {
+       let dynamicTR = "<tr>";
+       dynamicTR = dynamicTR + "<td class='device_id'>" + element.total_no_mobile_devices + "</td>";
+       
+       dynamicTR = dynamicTR + "<td>" + element.total_no_server_devices + "</td>";
+       dynamicTR = dynamicTR + "<td class='Manufacture'>" + element.total_no_otherdevices  + "</td>";
+       dynamicTR = dynamicTR + "<td class='Operating_System'>" + element.total_no_of_devices  + "</td>";
+       dynamicTR = dynamicTR + "<td class='Date_of_Purchase'>" + element.total_no_types  + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Serial_Number'>" + element.activestatus  + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Server_connected_to'>" + element.inactivestatus  + "</td>";
+       dynamicTR = dynamicTR + "<td class='Current_Client'>" + element.damagedstatus  + "</td>";
+       dynamicTR = dynamicTR + "<td class='Location_of_Hosting'>" + element.serveractivestatus  + "</td>";
+           
+       dynamicTR = dynamicTR + "<td class='type_of_device'>" + element.serverinactivestatus  + "</td>";
+       dynamicTR = dynamicTR + "<td class='Status'>" + element.serverdamagedstatus  + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='IP_address'>" + element.otherdevicesactivestatus  + "</td>";
+       
+       dynamicTR = dynamicTR + "<td class='Phone_Number'>" + element.otherdevicesinactivestatus  + "</td>";
+       dynamicTR = dynamicTR + "<td class='Phone_Number'>" + element.otherdevicesdamagedstatus   + "</td>";
+       
+       dynamicTR = dynamicTR + "    <td class='tdAction text-center'>";
+       dynamicTR = dynamicTR + "    </td>";
+       dynamicTR = dynamicTR + " </tr>";
+       $("#tblreports tbody").append(dynamicTR);
+       index++;
+      
+ });
+ 
+ }
+  } );     
+ }
+
+ 
+
+ 
+   
+  </script>
+    
+  </head>
+  <body>
+    
+    
+<br>
+          <button  class="a" type="button" id="button">getmobiledetails</button>
+           <ul id="list"></ul>
+           
+           <div class="row pt-3">
+            <div class="col-md-12 col-sm-12 col-12 p-2 ">
+             
+           <table id="tblData" class="table table-dark table table-bordered  " >
+            <thead id="head">
+               
+            </thead>
+            <tbody>
+
+            </tbody>
+           </table>
+           </div>
+           </div>
+        
+   
+
+          <button class="a" type="button" id="getreports">getreports</button>
+          <ul id="reportslist">
+         
+
+          </ul>
+          <div class="row pt-3">
+            <div class="col-md-12 col-sm-12 col-12 p-2 ">
+             
+          <table id="tblreports" class="table table-dark table-bordered table-hover table-striped table table-hover  table-responsive ">
+           <thead id="reporthead"></thead>
+           <tbody></tbody>
+           </table>
+           </div>
+           </div>
+
+              
+        
+      
+
+      
+
+          <button  class="a" type="button" id="getserver">getserverdetails</button>
+          <ul id="serverlist">
+          </ul>
+          <div class="row pt-3">
+            <div class="col-md-12 col-sm-12 col-12 p-2 ">
+             
+          <table id="tblsData" class="table table-dark table-bordered table-hover table-striped table table-hover  table-responsive " >
+            <thead id="shead">
+               
+            </thead>
+            <tbody>
+
+            </tbody>
+           </table>
+           </div>
+           </div>
+          
+
+         
+      
+        
+
+          <button  class="a" type="button" id="getotherdevices">getotherdevices</button>
+          <ul id="otherdeviceslist">
+          </ul>
+          <div class="row pt-3">
+            <div class="col-md-12 col-sm-12 col-12 p-2 ">
+             
+          <table id="tblodData" class="table table-dark table-bordered table-hover table-striped table table-hover  table-responsive " >
+            <thead id="odhead">
+               
+            </thead>
+            <tbody>
+
+            </tbody>
+           </table>
+           </div>
+           </div>
+          
+          <a href="getmobilelogs.html"><button  class="a" type="submit" id="auditlogs">getauditlogs</button></a>
+          <a href="getserverlogs.html"><button  class="a" type="submit" id="serverlogs">get server logs</button></a>
+          <a href="getotherdeviceslogs.html"><button  class="a" type="submit" id="otherdeviceslogs">get otherdevices logs</button></a>
+          <br><br>
+
+          
+        
+        
+      </div>
+    </div>
+    <div class="logout">
+      <a href="newloginpage.html" ><button class="a" type="button" style="width: 100px;font:900">Logout</button></a>
+    </div>
+  </body>
+  </html>

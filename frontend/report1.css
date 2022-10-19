@@ -1,0 +1,16 @@
+*{
+   
+    background-image: url(images/bg\ login.png);
+    background-position: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+
+}
+button
+      {
+        font-size: medium;
+        padding: 10px;
+        border-radius:10px ;
+        margin: 10px;
+      }

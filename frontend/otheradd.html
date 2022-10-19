@@ -1,0 +1,224 @@
+<html>
+    <head>
+        <title> Add a new server</title>
+        <link rel="stylesheet" href="form.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <style>
+            .logout {
+               position: absolute;
+               top: 10px;
+               right: 18px;
+               font-size: 20px;
+               font:bolder;
+             }
+             
+           </style>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+
+        <script>
+            $(document).ready(function() {
+                var myData = localStorage['sessionuser'];
+                console.log(myData);
+               
+                $('#add-otherdevices').on('click',function(){
+                    var $username=$('#username');
+           
+                    var otherdevicesdata={
+                        
+                     "userId":myData,
+                       "otherdevices":{
+                        "type":$('#type_of_device').val(),
+                       "manufacture":$('#Manufacture').val(),
+                       "make":$('#Make').val(),
+                       "model":$('#Model').val(),
+                       "os":$('#Operating_System').val(),
+                       "date":$('#Date_of_Purchase').val(),
+                       "client":$('#Current_Client').val(),
+                       "client_deviceid":$('#Device_ID').val(),
+                       "serialno":$('#Serial_Number').val(),
+                       "location":$('#Location_of_Hosting').val(),
+                       "status":$('#Status').val(),
+                       
+                       }
+                    };
+                   addotherdevices(otherdevicesdata)
+                   loadDataFromLocal();
+                    
+                 });
+                 loadDataFromLocal();
+            })
+          
+        function addotherdevices(otherdevicesdata){
+            
+        
+           $.ajax({
+            contentType:"application/json; charset=UTF-8",
+                url:"http://localhost:8080/demoaddotherdevices",
+                type:'POST',
+                mode : 'CORS',
+                datatype:'json',
+                data:JSON.stringify(otherdevicesdata),
+                success:function(){
+                   alert('otherdevicesdetails added successfully')
+                },
+                error:function(){
+                    alert("error adding otherdevices details")
+                }
+           });
+           loadDataFromLocal();
+        }
+        
+function loadDataFromLocal() {
+  
+    $.ajax({
+          type: 'get',
+          url : 'http://localhost:8080/demogetotherdevices/',
+          success: function(data){
+      $("#tblData tbody").html("");
+
+      let index = 1;
+      $.each(data,function(i, element)
+      {
+        let dynamicTR = "<tr>";
+        dynamicTR = dynamicTR + "<td class='device_id'>" + element.clientDeviceID+ "</td>";
+        
+        dynamicTR = dynamicTR + "<td>" + element.name+ "</td>";
+        dynamicTR = dynamicTR + "<td class='Manufacture'>" + element.manufacture + "</td>";
+        dynamicTR = dynamicTR + "<td class='Operating_System'>" + element.os + "</td>";
+        dynamicTR = dynamicTR + "<td class='Date_of_Purchase'>" + element.date + "</td>";
+        
+        dynamicTR = dynamicTR + "<td class='Serial_Number'>" + element.serialno + "</td>";
+        
+        dynamicTR = dynamicTR + "<td class='Server_connected_to'>" + element.server_connected + "</td>";
+        dynamicTR = dynamicTR + "<td class='Current_Client'>" + element.current_client + "</td>";
+        dynamicTR = dynamicTR + "<td class='Location_of_Hosting'>" + element.location + "</td>";
+            
+        dynamicTR = dynamicTR + "<td class='type_of_device'>" + element.type + "</td>";
+        dynamicTR = dynamicTR + "<td class='Status'>" + element.status + "</td>";
+        
+        dynamicTR = dynamicTR + "<td class='IP_address'>" + element.ipadress + "</td>";
+        
+        dynamicTR = dynamicTR + "<td class='Phone_Number'>" + element.phno + "</td>";
+        dynamicTR = dynamicTR + "    <td class='tdAction text-center'>";
+        dynamicTR = dynamicTR + "    </td>";
+        dynamicTR = dynamicTR + " </tr>";
+        $("#tblData tbody").append(dynamicTR);
+        index++;
+       
+  });
+  
+  }
+   } );     
+      
+  }
+    </script>
+    </head>
+        <body>
+            
+  <div class="logout">  <a href="add.html" ><button class="a" type="button" style="width: 100px;font:900">&#8592</button></a>
+  </div>
+                
+          <br><br>
+                <div class="container">
+                    <div class="title">Add a mobile</div>
+                    <div class="content">
+                      
+                      <form action="#">
+                        <div class="user-details">
+            
+                          
+                          <div class="input-box">
+            Type of Device:
+            <input type="text" id="type_of_device" name="Type of Device" size="15" maxlength="30" placeholder="Type of Device"><br><br>
+           </div>
+            
+           
+           <div class="input-box">
+           Manufacturer:
+            <input type="text" id="Manufacture" name="Manufacturer" size="15" maxlength="30" placeholder="Manufacturer"><br><br>
+        </div>
+          
+        <div class="input-box">
+            Make:
+            <input type="text" id="Make"  name="Make" size="15" maxlength="30" placeholder="Make"><br><br>
+        </div>
+            
+        <div class="input-box">
+            Model:
+            <input type="number" id="Make"  name="Model" size="15" maxlength="30" placeholder="Model"><br><br>
+        </div>
+          
+        <div class="input-box">
+            Operating System:
+            <input type="text" id="Operating_System"  name="Operating_System" size="15" maxlength="30" placeholder="Operating System"><br><br>
+        </div>
+            
+        <div class="input-box">
+            Date of Purchase:
+            <input type="date" id="Date_of_Purchase"  name="Date_of_Purchase" size="15" maxlength="30" placeholder="DD/MM/YYYY" ><br><br>
+        </div>
+           
+        <div class="input-box">
+            Current client:
+            <input type="text" id="Current_Client"  name="Current_Client" size="15" maxlength="30" placeholder="Current client"><br><br>
+        </div>
+           
+        <div class="input-box">
+            Device ID:
+            <input type="text" id="Device_ID"  name="Device_ID" size="15" maxlength="30" placeholder="ID"><br><br>
+        </div>
+           
+        <div class="input-box">
+            Serial Number:
+            <input type="number" id="Serial_Number"  name="Serial_Number" size="15" maxlength="30" placeholder="Serial Number"><br><br>
+        </div>
+            
+        <div class="input-box">
+            Location of Hosting:
+            <input type="text" id="Location_of_Hosting"  name="Location_of_Hosting" size="15" maxlength="30" placeholder="Location"><br><br>
+        </div>
+            
+        <div class="input-box">
+            Status:
+            <select name="Status" id="Status">
+                <option value="Active">Active</option>
+                <option value="Inctive">Inctive</option>
+                <option value="Damaged">Damaged</option>
+              </select>
+            </div>
+            <br><br>
+            <div class="button">
+            <button id="add-otherdevices">add otherdevices</button>
+        </div>
+        </div>
+        </form>
+    </div>
+   
+
+    
+</div>
+<br><br>
+        <table id="tblData"  class="table table-primary table-dark">
+            <thead>
+                <th>Device Id</th>
+                <th>Name</th>
+                <th>Manufacture</th>
+                <th>Operating System </th>
+                <th>Date of Purchase</th>
+                <th>Serial Number</th>
+                <th>Server Connected </th>
+                <th> Current Client </th>
+                <th>Location of Hosting </th>
+                <th> Type of device </th>
+                <th>Status </th>
+                <th>IP Address</th>
+                <th> Phone Number</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+   
+        </body>
+    
+</html>
